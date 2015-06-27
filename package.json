@@ -2,9 +2,9 @@
   "name": "adsbpa-stats",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node build.js > repos.json"
   },
   "author": "",
   "license": "ISC",
