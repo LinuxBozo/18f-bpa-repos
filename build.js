@@ -22,7 +22,7 @@ github.authenticate({
 function BPAData() {
     this.matchingRepos = {};
     this.defaultSearchOptions = {
-        q: 'created:>=2015-06-15 -user:gsa -user:18F in:name,description,readme',
+        q: 'created:>=2015-06-15 -user:gsa -user:18F -user:LinuxBozo in:name,description,readme',
         sort: 'updated',
         per_page: 100
     };
