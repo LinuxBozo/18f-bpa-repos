@@ -1,0 +1,41 @@
+<div layout="vertical" layout-fill>
+  <md-content>
+    <md-toolbar class="md-hue-1" layout="row" layout-align="space-between center">
+      <span><h2 class="md-toolbar-tools">Sort</h2></span>
+      <span>
+        <md-button class="md-raised md-primary" ng-click="setOrder('-pushed_at')">Pushed</md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('created_at')">Created</md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('-open_issues_count')">Issues</md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('-forks_count')">Forks</md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('-stargazers_count')">Stars</md-button>
+      </span>
+    </md-toolbar>
+    <section class="techs" layout-align="center">
+      <md-card class="md-default-theme" ng-repeat="repo in repos | orderBy:order">
+        <md-card-content>
+          <md-list-item class="md-3-line contact-item">
+            <img ng-src="{{ repo.owner.avatar_url }}" class="md-avatar" alt="{{ repo.owner.login }}">
+            <div class="md-list-item-text">
+              <h3 class="md-title">{{ repo.owner.login }}</h3>
+              <h4><a ng-href="{{ repo.html_url }}">{{ repo.name }}</a></h4>
+              <p>Created: {{ repo.created_at | date:'medium' }}</p>
+              <p>Pushed: {{ repo.pushed_at | date:'medium' }}</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-3-line">
+            <p>Issues: <a href="https://github.com/{{ repo.full_name }}/issues">{{ repo.open_issues_count }}</a></p>
+            <p>Forks: <a href="https://github.com/{{ repo.full_name }}/network/members">{{ repo.forks_count }}</a></p>
+            <p>Stars: <a href="https://github.com/{{ repo.full_name }}/stargazers">{{ repo.stargazers_count }}</a></p>
+          </md-list-item>
+        </md-card-content>
+        <div layout="row" layout-align="end center">
+          <div class="md-chips">
+            <md-button ng-if="repo.description" class="md-raised pull-left" ng-click="showDescription($event, repo.name, repo.description)" flex flex-md="100">Show Description</md-button>
+            <span ng-if="repo.owner.type === 'Organization'" class="pull-left md-chip">ORG</span>
+            <span ng-if="repo.language" class="md-chip">{{repo.language}}</span>
+          </div>
+        </div>
+      </md-card>
+    </section>
+  </md-content>
+</div>
