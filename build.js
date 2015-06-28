@@ -33,10 +33,8 @@ BPAData.prototype.doSearch = function(terms) {
     var options = _.clone(self.defaultSearchOptions);
     options.q += ' ' + terms;
     var repoSearch = Promise.promisify(github.search.repos);
-    console.error(options);
     return repoSearch(options)
     .then(function(data) {
-        //console.log(JSON.stringify(data, null, 2));
         _.map(data.items, function(repo) {
             // We haven't seen a repo from this owner yet.
             var notFound = Object.keys(self.matchingRepos).indexOf(repo.owner.login) === -1;
@@ -68,7 +66,6 @@ Promise.map(terms, function(term) {
     return data.doSearch(term);
 })
 .then(function() {
-    //console.log(Object.keys(data.matchingRepos).length);
     console.log(JSON.stringify(data.matchingRepos, null, 2));
     console.error(Object.keys(data.matchingRepos).length);
 });
