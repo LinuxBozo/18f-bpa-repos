@@ -25,10 +25,16 @@ html {
 .pull-left {
   float: left;
 }
+.shrink {
+  height: .75em;
+  line-height:.75em;
+  padding: 2em 0;
+  margin: 2em 0;
+}
 
 md-card {
-  max-width: 390px;
-  min-width: 390px;
+  max-width: 370px;
+  min-width: 370px;
   img {
     width: 50px;
     padding-right: 1em;

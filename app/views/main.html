@@ -1,7 +1,10 @@
 <div layout="vertical" layout-fill>
   <md-content>
+    <span class="md-toolbar shrink"><h2>Total Repos Found: {{ repos.length }}</h2></span>
     <md-toolbar class="md-hue-1" layout="row" layout-align="space-between center">
-      <span><h2 class="md-toolbar-tools">Sort</h2></span>
+      <span class="md-toolbar-tools">
+        Sort:
+      </span>
       <span>
         <md-button class="md-raised md-primary" ng-click="setOrder('-pushed_at')">Pushed <md-icon md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon></md-button>
         <md-button class="md-raised md-primary" ng-click="setOrder('-updated_at')">Updated <md-icon md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon></md-button>
