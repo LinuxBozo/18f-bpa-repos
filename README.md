@@ -7,9 +7,11 @@ version 0.0.2.
 
 [Generate a github OAuth token](https://github.com/settings/tokens/new)
 
-Update the `build.js` with your access token at `line: 18`
+Export your token as an environment variable:
 
-Run `npm run generate-repo-json` to build the `app/repos.json`
+```shell
+$ export GITHUB_API_TOKEN=<your token>
+```
 
 Run `grunt` for building and `grunt serve` for preview.
 

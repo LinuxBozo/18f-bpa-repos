@@ -2,13 +2,14 @@
   "name": "adsbpastats",
   "version": "0.0.0",
   "dependencies": {
-    "bluebird": "^2.9.30",
-    "github": "^0.2.4",
-    "lodash": "^3.9.3",
-    "moment": "^2.10.3"
   },
   "repository": {},
   "devDependencies": {
+    "bluebird": "^2.9.30",
+    "github": "^0.2.4",
+    "lodash": "^3.9.3",
+    "moment": "^2.10.3",
+
     "grunt": "^0.4.5",
     "grunt-autoprefixer": "^2.0.0",
     "grunt-concurrent": "^1.0.0",
@@ -45,6 +46,7 @@
   },
   "scripts": {
     "test": "grunt test",
-    "generate-repo-json": "node build.js > app/repos.json"
+    "generate-repo-json": "node app/build.js > app/repos.json",
+    "postinstall": "bower install"
   }
 }

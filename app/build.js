@@ -3,7 +3,8 @@
 var GitHubApi = require('github'),
     Promise = require('bluebird'),
     moment = require('moment'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    token = process.env.GITHUB_API_TOKEN;
 
 var github = new GitHubApi({
     version: '3.0.0',
@@ -13,10 +14,13 @@ var github = new GitHubApi({
         'user-agent': 'LinuxBozo-ads-app'
     }
 });
-github.authenticate({
-    type: 'token',
-    token: '311b94ea28ad23fa8d8796c0bb8f5e1823effd3b'
-});
+
+if (token) {
+    github.authenticate({
+        type: 'token',
+        token: token
+    });
+}
 
 
 function BPAData() {
