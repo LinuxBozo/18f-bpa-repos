@@ -3,11 +3,12 @@
     <md-toolbar class="md-hue-1" layout="row" layout-align="space-between center">
       <span><h2 class="md-toolbar-tools">Sort</h2></span>
       <span>
-        <md-button class="md-raised md-primary" ng-click="setOrder('-pushed_at')">Pushed</md-button>
-        <md-button class="md-raised md-primary" ng-click="setOrder('created_at')">Created</md-button>
-        <md-button class="md-raised md-primary" ng-click="setOrder('-open_issues_count')">Issues</md-button>
-        <md-button class="md-raised md-primary" ng-click="setOrder('-forks_count')">Forks</md-button>
-        <md-button class="md-raised md-primary" ng-click="setOrder('-stargazers_count')">Stars</md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('-pushed_at')">Pushed <md-icon md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon></md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('-updated_at')">Updated <md-icon md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon></md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('created_at')">Created <md-icon md-font-set="material-icons" aria-label="Sort Ascending">keyboard_arrow_up</md-icon></md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('-open_issues_count')">Issues <md-icon md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon></md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('-forks_count')">Forks <md-icon md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon></md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('-stargazers_count')">Stars <md-icon md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon></md-button>
       </span>
     </md-toolbar>
     <section class="techs" layout-align="center">
@@ -19,7 +20,8 @@
               <h3 class="md-title">{{ repo.owner.login }}</h3>
               <h4><a ng-href="{{ repo.html_url }}">{{ repo.name }}</a></h4>
               <p>Created: {{ repo.created_at | date:'medium' }}</p>
-              <p>Pushed: {{ repo.pushed_at | date:'medium' }}</p>
+              <p>Updated: {{ repo.updated_at | date:'medium' }}</p>
+              <p>Pushed: <a href="https://github.com/{{ repo.full_name }}/branches">{{ repo.pushed_at | date:'medium' }}</a></p>
             </div>
           </md-list-item>
           <md-list-item class="md-3-line">
