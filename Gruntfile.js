@@ -28,7 +28,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     // Project settings
     yeoman: appConfig,
-    
+
     //Heroku Settings
     mkdir: {
       heroku: {
@@ -44,7 +44,7 @@ module.exports = function (grunt) {
             files: [{
                 //Create Procfile required by Heroku
                 file: 'heroku/Procfile',
-                method: function(fs, fd, done) {  
+                method: function(fs, fd, done) {
                     fs.writeSync(fd, 'web: node server.js');
                     done();
                 }
@@ -59,11 +59,15 @@ module.exports = function (grunt) {
                     fs.writeSync(fd, '  "description": ' + (pkg.description ? '"' + pkg.description + '"' : '""') + ',\n');
                     fs.writeSync(fd, '  "main": "server.js",\n');
                     fs.writeSync(fd, '  "dependencies": {\n');
-                    fs.writeSync(fd, '    "express": "3.*"');
+                    fs.writeSync(fd, '    "bluebird": "^2.9.30",\n');
+                    fs.writeSync(fd, '    "github": "^0.2.4",\n');
+                    fs.writeSync(fd, '    "lodash": "^3.9.3",\n');
+                    fs.writeSync(fd, '    "moment": "^2.10.3",\n');
+                    fs.writeSync(fd, '    "express": "^4.12.3"');
                     if (min) {
                         fs.writeSync(fd, '\n');
                     } else {
-                        fs.writeSync(fd, ',\n    "bower": "^1.3"\n');
+                        fs.writeSync(fd, ',\n    "bower": "^1.3"');
                     }
                     fs.writeSync(fd, '  },\n');
                     fs.writeSync(fd, '  "scripts": {\n');
@@ -77,28 +81,6 @@ module.exports = function (grunt) {
                     fs.writeSync(fd, '  "author": ' + (pkg.author ? '"' + pkg.author + '"' : '""') + ',\n');
                     fs.writeSync(fd, '  "license": ' + (pkg.license ? '"' + pkg.license + '"' : '""') + '\n');
                     fs.writeSync(fd, '}');
-                    done();
-                }
-            }, {
-                //Create server.js used by ExpressJS within Heroku
-                file: 'heroku/server.js',
-                method: function(fs, fd, done) {
-                    var useAuth = false;
-                    fs.writeSync(fd, 'var express = require("express");\n');
-                    fs.writeSync(fd, 'var app = express();\n');
-                    if (useAuth) {
-                        var userName = 'test';
-                        var password = 'password1';
-                        fs.writeSync(fd, 'app.use(express.basicAuth("' + userName + '", "' + password + '"));\n');
-                    }
-                    fs.writeSync(fd, 'app.use(express.static(__dirname));\n');
-                    fs.writeSync(fd, 'app.get("/", function(req, res){\n');
-                    fs.writeSync(fd, '  res.sendfile("/index.html");\n');
-                    fs.writeSync(fd, '});\n');
-                    fs.writeSync(fd, 'var port = process.env.PORT || 9000;\n');
-                    fs.writeSync(fd, 'app.listen(port, function() {\n');
-                    fs.writeSync(fd, '    console.log("Listening on port " + port);\n');
-                    fs.writeSync(fd, '});');
                     done();
                 }
             }, {
@@ -130,7 +112,7 @@ module.exports = function (grunt) {
             command: [
                 'cd heroku',
                 'git init',
-                'git remote add ' + herokuAppName + ' git@heroku.com:' + herokuAppName + '.git',
+                'heroku git:remote -a ' + herokuAppName
             ].join('&&')
         },
         'heroku-git-push': {
@@ -138,11 +120,11 @@ module.exports = function (grunt) {
                 'cd heroku',
                 'git add -A',
                 'git commit -m "' + (grunt.option('gitm') ? grunt.option('gitm') : 'updated') + '"',
-                'START /WAIT git push ' + herokuAppName + ' master',
+                'git push heroku master',
                 'heroku open --app ' + herokuAppName
             ].join('&&')
         }
-    }, 
+    },
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -191,7 +173,17 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           open: true,
-          middleware: function (connect) {
+          middleware: function (connect, options, middlewares) {
+            middlewares.unshift(function (req, res, next) {
+              var BPAData = require('./app/build.js');
+              if (req.url !== '/repos') {
+                return next();
+              }
+              BPAData.doAllSearches()
+              .then(function(data) {
+                  return res.end(JSON.stringify(data));
+              });
+            });
             return [
               connect.static('.tmp'),
               connect().use(
@@ -203,7 +195,7 @@ module.exports = function (grunt) {
                 connect.static('./app/styles')
               ),
               connect.static(appConfig.app)
-            ];
+            ].concat(middlewares);
           }
         }
       },
@@ -226,7 +218,20 @@ module.exports = function (grunt) {
       dist: {
         options: {
           open: true,
-          base: '<%= yeoman.dist %>'
+          base: '<%= yeoman.dist %>',
+          middleware: function (connect, options, middlewares) {
+            middlewares.unshift(function (req, res, next) {
+              var BPAData = require('./app/build.js');
+              if (req.url !== '/repos') {
+                return next();
+              }
+              BPAData.doAllSearches()
+              .then(function(data) {
+                  return res.end(JSON.stringify(data));
+              });
+            });
+            return middlewares;
+          }
         }
       }
     },
@@ -264,7 +269,7 @@ module.exports = function (grunt) {
             '!<%= yeoman.dist %>/Procfile',
             '!<%= yeoman.dist %>/package.json',
             '!<%= yeoman.dist %>/server.js',
-            '!<%= yeoman.dist %>/.gitignore'              
+            '!<%= yeoman.dist %>/.gitignore'
           ]
         }]
       },
@@ -280,7 +285,7 @@ module.exports = function (grunt) {
                   '!heroku/.Procfile'
               ]
           }]
-      },       
+      },
       server: '.tmp'
     },
 
@@ -524,7 +529,7 @@ module.exports = function (grunt) {
                   '**'
               ]
           }]
-      },       
+      },
       dist: {
         files: [{
           expand: true,
@@ -535,6 +540,8 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
+            'build.js',
+            'server.js',
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
@@ -637,6 +644,9 @@ module.exports = function (grunt) {
           grunt.option('min', true);
       }
       if (grunt.option('min')) {
+          grunt.task.run([
+            'build'
+          ]);
           grunt.option('cwd', 'dist');
       } else {
           grunt.option('cwd', 'app');

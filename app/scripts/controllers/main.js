@@ -12,9 +12,8 @@ angular.module('adsbpaStatsApp')
 
     $scope.order = '-pushed_at';
 
-    $http.get('repos.json').then(function(res) {
+    $http.get('repos').then(function(res) {
       $scope.repos = lodash.values(res.data);
-      console.log($scope.repos);
     });
 
     $scope.setOrder = function(order) {

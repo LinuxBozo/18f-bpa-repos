@@ -50,27 +50,30 @@ BPAData.prototype.doSearch = function(terms) {
     });
 };
 
-var data = new BPAData();
-var terms = [
-    '4QTFHS150004 OR RFQ993471 OR "agile delivery"',
-    '18F NOT microcontroller NOT "bad code" NOT font NOT laptop',
-    'BPA NOT crypto NOT australia NOT boot',
-    'GSA ADS',
-    'agile GSA',
-    'openFDA',
-    'open FDA NOT illustration',
-    'FDA agile',
-    'FDA food NOT koop',
-    'FDA enforcement NOT koop',
-    'FDA recall NOT koop',
-    'FDA device',
-    'FDA drug',
-];
-Promise.map(terms, function(term) {
-    return data.doSearch(term);
-})
-.then(function() {
-    console.log(JSON.stringify(data.matchingRepos, null, 2));
-    console.error(Object.keys(data.matchingRepos).length);
-});
+BPAData.prototype.doAllSearches = function() {
+    var self = this;
+    var terms = [
+        '4QTFHS150004 OR RFQ993471 OR "agile delivery"',
+        '18F NOT microcontroller NOT "bad code" NOT font NOT laptop',
+        'BPA NOT crypto NOT australia NOT boot',
+        'GSA ADS',
+        'agile GSA',
+        'openFDA',
+        'open FDA NOT illustration',
+        'FDA agile',
+        'FDA food NOT koop',
+        'FDA enforcement NOT koop',
+        'FDA recall NOT koop',
+        'FDA device',
+        'FDA drug',
+    ];
+    return Promise.map(terms, function(term) {
+        return self.doSearch(term);
+    })
+    .then(function() {
+        return self.matchingRepos;
+    });
 
+};
+
+module.exports = new BPAData();
