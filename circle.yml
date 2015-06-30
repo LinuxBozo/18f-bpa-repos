@@ -3,4 +3,4 @@ deployment:
     branch: master
     commands:
       - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
-      grunt heroku:push
+      - grunt heroku:push
