@@ -679,7 +679,7 @@ module.exports = function (grunt) {
                   'shell:heroku-git-push'
               ]);
               break;
-          case: 'circle':
+          case 'circle':
               grunt.task.run([
                   'shell:heroku-circle-deploy'
               ]);
