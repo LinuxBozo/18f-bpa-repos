@@ -124,6 +124,14 @@ module.exports = function (grunt) {
                 'heroku open --app ' + herokuAppName
             ].join('&&')
         }
+        'heroku-circle-deploy': {
+            command: [
+                'cd heroku',
+                'git add -A',
+                'git commit -m "' + (grunt.option('gitm') ? grunt.option('gitm') : 'updated') + '"',
+                'git push git@heroku.com:' + herokuAppName + '.git $CIRCLE_SHA1:refs/heads/master'
+            ].join('&&')
+        }
     },
 
     // Watches files for changes and runs tasks based on the changed files
@@ -671,6 +679,10 @@ module.exports = function (grunt) {
                   'shell:heroku-git-push'
               ]);
               break;
+          case: 'circle':
+              grunt.task.run([
+                  'shell:heroku-circle-deploy'
+              ]);
           default:
               console.log('heroku:' + method + ' is not a valid target.');
               break;
