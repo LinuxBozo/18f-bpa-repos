@@ -126,7 +126,10 @@ module.exports = function (grunt) {
         },
         'heroku-git-clone': {
             command: [
-                'git clone git@heroku.com:' + herokuAppName + '.git heroku'
+                'git clone git@heroku.com:' + herokuAppName + '.git heroku',
+                'cd heroku',
+                'git config user.email "linuxbozo@gmail.com"',
+                'git config user.name "linuxbozo"'
             ].join('&&')
         },
         'heroku-circle-deploy': {
