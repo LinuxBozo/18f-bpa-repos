@@ -134,7 +134,7 @@ module.exports = function (grunt) {
                 'cd heroku',
                 'git add -A',
                 'git commit -m "' + (grunt.option('gitm') ? grunt.option('gitm') : 'updated') + '"',
-                'git push heroku master'
+                'git push origin master'
             ].join('&&')
         }
     },
