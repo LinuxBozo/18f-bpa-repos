@@ -126,7 +126,7 @@ module.exports = function (grunt) {
         },
         'heroku-git-clone': {
             command: [
-                'heroku git:clone -a ' + herokuAppName + ' heroku'
+                'git clone git@heroku.com:' + herokuAppName + '.git heroku'
             ].join('&&')
         },
         'heroku-circle-deploy': {
