@@ -26,7 +26,7 @@ if (token) {
 function BPAData() {
     this.matchingRepos = {};
     this.defaultSearchOptions = {
-        q: 'created:>=2015-01-08 pushed:>=2015-06-17 -user:gsa -user:18F -user:LinuxBozo -user:GreenButtonAlliance -user:rgradeck -user:ifiokjr -user:shrogi -user:BPA-CSIRO-Workshops -user:redeian -user:marrccel -user:vinayjn -user:olegursu -user:macarthur-lab in:name,description,readme',
+        q: 'created:>=2015-01-08 pushed:>=2015-06-17 -user:gsa -user:18F -user:LinuxBozo -user:GreenButtonAlliance -user:rgradeck -user:ifiokjr -user:shrogi -user:BPA-CSIRO-Workshops -user:redeian -user:marrccel -user:vinayjn -user:olegursu -user:macarthur-lab -user:subhra209 in:name,description,readme',
         sort: 'updated',
         per_page: 100
     };
