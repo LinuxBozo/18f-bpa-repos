@@ -124,12 +124,17 @@ module.exports = function (grunt) {
                 'heroku open --app ' + herokuAppName
             ].join('&&')
         },
+        'heroku-git-clone': {
+            command: [
+                'heroku git:clone -a ' + herokuAppName + ' heroku'
+            ].join('&&')
+        },
         'heroku-circle-deploy': {
             command: [
                 'cd heroku',
                 'git add -A',
                 'git commit -m "' + (grunt.option('gitm') ? grunt.option('gitm') : 'updated') + '"',
-                'git push git@heroku.com:' + herokuAppName + '.git master'
+                'git push heroku master'
             ].join('&&')
         }
     },

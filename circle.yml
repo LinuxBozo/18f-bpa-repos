@@ -3,6 +3,5 @@ deployment:
     branch: master
     commands:
       - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
-      - grunt file-creator:heroku
-      - grunt shell:heroku-git-init
+      - grunt shell:heroku-git-clone
       - grunt heroku:circle
