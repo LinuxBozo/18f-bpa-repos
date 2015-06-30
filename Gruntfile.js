@@ -123,13 +123,13 @@ module.exports = function (grunt) {
                 'git push heroku master',
                 'heroku open --app ' + herokuAppName
             ].join('&&')
-        }
+        },
         'heroku-circle-deploy': {
             command: [
                 'cd heroku',
                 'git add -A',
                 'git commit -m "' + (grunt.option('gitm') ? grunt.option('gitm') : 'updated') + '"',
-                'git push git@heroku.com:' + herokuAppName + '.git $CIRCLE_SHA1:refs/heads/master'
+                'git push git@heroku.com:' + herokuAppName + '.git master'
             ].join('&&')
         }
     },
@@ -683,6 +683,7 @@ module.exports = function (grunt) {
               grunt.task.run([
                   'shell:heroku-circle-deploy'
               ]);
+              break;
           default:
               console.log('heroku:' + method + ' is not a valid target.');
               break;
