@@ -1,3 +1,6 @@
-dependencies:
-  pre:
-    - sudo apt-get update; sudo apt-get install ruby-sass; sudo gem install compass
+deployment:
+  production:
+    branch: master
+    commands:
+      - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
+      grunt heroku:push
