@@ -4,14 +4,38 @@
     <md-toolbar class="md-hue-1" layout="row" layout-align="space-between center">
       <span>
         <span class="md-toolbar-tools">Sort:</span>
-        <md-button class="md-raised md-primary" ng-click="setOrder('-pushed_at')">Pushed <md-icon md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon></md-button>
-        <md-button class="md-raised md-primary" ng-click="setOrder('-updated_at')">Updated <md-icon md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon></md-button>
-        <md-button class="md-raised md-primary" ng-click="setOrder('created_at')">Created <md-icon md-font-set="material-icons" aria-label="Sort Ascending">keyboard_arrow_up</md-icon></md-button>
-        <md-button class="md-raised md-primary" ng-click="setOrder('-open_issues_count')">Issues <md-icon md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon></md-button>
-        <md-button class="md-raised md-primary" ng-click="setOrder('-forks_count')">Forks <md-icon md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon></md-button>
-        <md-button class="md-raised md-primary" ng-click="setOrder('-stargazers_count')">Stars <md-icon md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon></md-button>
-        <md-button class="md-raised md-primary" ng-click="setOrder('language')">Language <md-icon md-font-set="material-icons" aria-label="Sort Ascending">keyboard_arrow_up</md-icon></md-button>
-        <md-button class="md-raised md-primary" ng-click="setOrder('owner.type')">Org/User <md-icon md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon></md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('pushed_at')">Pushed
+          <md-icon ng-if="!orderAsc && orderColumn == 'pushed_at'" md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon>
+          <md-icon ng-if="orderAsc && orderColumn == 'pushed_at'" md-font-set="material-icons" aria-label="Sort Ascending">keyboard_arrow_up</md-icon>
+        </md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('updated_at')">Updated
+          <md-icon ng-if="!orderAsc && orderColumn == 'updated_at'" md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon>
+          <md-icon ng-if="orderAsc && orderColumn == 'updated_at'" md-font-set="material-icons" aria-label="Sort Ascending">keyboard_arrow_up</md-icon>
+        </md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('created_at')">Created
+          <md-icon ng-if="!orderAsc && orderColumn == 'created_at'" md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon>
+          <md-icon ng-if="orderAsc && orderColumn == 'created_at'" md-font-set="material-icons" aria-label="Sort Ascending">keyboard_arrow_up</md-icon>
+        </md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('open_issues_count')">Issues
+          <md-icon ng-if="!orderAsc && orderColumn == 'open_issues_count'" md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon>
+          <md-icon ng-if="orderAsc && orderColumn == 'open_issues_count'" md-font-set="material-icons" aria-label="Sort Ascending">keyboard_arrow_up</md-icon>
+        </md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('forks_count')">Forks
+          <md-icon ng-if="!orderAsc && orderColumn == 'forks_count'" md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon>
+          <md-icon ng-if="orderAsc && orderColumn == 'forks_count'" md-font-set="material-icons" aria-label="Sort Ascending">keyboard_arrow_up</md-icon>
+        </md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('stargazers_count')">Stars
+          <md-icon ng-if="!orderAsc && orderColumn == 'stargazers_count'" md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon>
+          <md-icon ng-if="orderAsc && orderColumn == 'stargazers_count'" md-font-set="material-icons" aria-label="Sort Ascending">keyboard_arrow_up</md-icon>
+        </md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('language')">Language
+          <md-icon ng-if="!orderAsc && orderColumn == 'language'" md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon>
+          <md-icon ng-if="orderAsc && orderColumn == 'language'" md-font-set="material-icons" aria-label="Sort Ascending">keyboard_arrow_up</md-icon>
+        </md-button>
+        <md-button class="md-raised md-primary" ng-click="setOrder('owner.type')">Org/User
+          <md-icon ng-if="!orderAsc && orderColumn == 'owner.type'" md-font-set="material-icons" aria-label="Sort Descending">keyboard_arrow_down</md-icon>
+          <md-icon ng-if="orderAsc && orderColumn == 'owner.type'" md-font-set="material-icons" aria-label="Sort Ascending">keyboard_arrow_up</md-icon>
+        </md-button>
       </span>
     </md-toolbar>
     <section class="techs" layout-align="center">

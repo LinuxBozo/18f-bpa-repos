@@ -18,5 +18,16 @@ describe('Controller: MainCtrl', function () {
 
   it('should set initial scope', function () {
     expect(scope.order).toBe('-pushed_at');
+    expect(scope.orderColumn).toBe('pushed_at');
+    expect(scope.orderAsc).toBe(false);
+  });
+
+  it('should set correct order', function() {
+    scope.setOrder('pushed_at');
+    expect(scope.orderColumn).toBe('pushed_at');
+    expect(scope.orderAsc).toBe(true);
+    scope.setOrder('foo');
+    expect(scope.orderColumn).toBe('foo');
+    expect(scope.orderAsc).toBe(false);
   });
 });

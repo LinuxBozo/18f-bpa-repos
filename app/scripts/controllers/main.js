@@ -10,6 +10,8 @@
 angular.module('adsbpaStatsApp')
   .controller('MainCtrl', function ($scope, $http, $mdDialog, lodash) {
 
+    $scope.orderColumn = 'pushed_at';
+    $scope.orderAsc = false;
     $scope.order = '-pushed_at';
 
     $http.get('repos').then(function(res) {
@@ -17,7 +19,13 @@ angular.module('adsbpaStatsApp')
     });
 
     $scope.setOrder = function(order) {
-      $scope.order = order;
+      if (order === $scope.orderColumn) {
+        $scope.orderAsc = !$scope.orderAsc;
+      } else {
+        $scope.orderAsc = false;
+      }
+      $scope.orderColumn = order;
+      $scope.order = $scope.orderAsc ? $scope.orderColumn : '-' + $scope.orderColumn;
     };
 
     $scope.showDescription = function(ev, title, description) {
