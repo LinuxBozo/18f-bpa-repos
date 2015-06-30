@@ -1,12 +1,7 @@
 // bower:scss
 // endbower
 
-@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
-
-html {
-  font-family: 'Roboto Slab', serif;
-}
 
 [layout=row] {
   flex-direction: row;
@@ -26,10 +21,8 @@ html {
   float: left;
 }
 .shrink {
-  height: .75em;
-  line-height:.75em;
-  padding: 2em 0;
-  margin: 2em 0;
+  height: 2em;
+  line-height: 1em;
 }
 
 md-card {
